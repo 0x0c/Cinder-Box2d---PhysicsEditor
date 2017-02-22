@@ -40,7 +40,7 @@ void Elements::setup( DataSourceRef file ){
 					Polygon fixturePolygon;
 
 					for( XmlTree::Iter vertex = polygon->begin("vertex"); vertex != polygon->end(); ++vertex)
-						fixturePolygon.vertexes.push_back( Vec2f( vertex->getAttributeValue<float>("x"), vertex->getAttributeValue<float>("y") ) );
+						fixturePolygon.vertexes.push_back( vec2( vertex->getAttributeValue<float>("x"), vertex->getAttributeValue<float>("y") ) );
 
 					bodyFixture.polygons.push_back(fixturePolygon);
 				}
@@ -48,7 +48,7 @@ void Elements::setup( DataSourceRef file ){
 					Circle fixtureCircle;
 
 					fixtureCircle.radius = circle->getAttributeValue<float>( "r" );
-					fixtureCircle.position = Vec2f( circle->getAttributeValue<float>( "x" ), circle->getAttributeValue<float>( "y" ) );
+					fixtureCircle.position = vec2( circle->getAttributeValue<float>( "x" ), circle->getAttributeValue<float>( "y" ) );
 
 					bodyFixture.circles.push_back( fixtureCircle );
 				}

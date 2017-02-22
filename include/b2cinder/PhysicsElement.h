@@ -19,6 +19,7 @@
 #include "cinder/app/App.h"
 
 namespace cinder {
+	using namespace ci;
 	namespace box2d {
 		class PhysicsElement {
 			
@@ -32,7 +33,7 @@ namespace cinder {
 			// careful with this one; mBody is undefined until set
 			b2Body* getBody(){ return mBody; }
 
-			inline void applyForce( Vec2f force, Vec2f pos ){ mBody->ApplyForce( Conversions::toPhysics(force), Conversions::toPhysics(pos) ); }
+			inline void applyForce( vec2 force, vec2 pos ){ mBody->ApplyForce( Conversions::toPhysics(force), Conversions::toPhysics(pos) ); }
 			
 			// update any settings applied to the body
 			virtual void update(){}
@@ -43,7 +44,7 @@ namespace cinder {
 			void setGravityScale( float scale );
 
 			//
-			Vec2f getScreenPos(){ return Conversions::toScreen( mBody->GetPosition() ); }
+			vec2 getScreenPos(){ return Conversions::toScreen( mBody->GetPosition() ); }
 			float getAngleDegrees(){ return Conversions::radiansToDegrees( mBody->GetAngle() ); }
 		private:
 			

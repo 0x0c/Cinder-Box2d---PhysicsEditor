@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+    <block
+        name="Box2d-PhysicsEditor"
+        id="com.akira.matsuda.Box2dPhysicsEditor"
+        author="Akira Matsuda"
+        license="MIT"
+        summary="Box2d-PhysicsEditor"
+        git="git@github.com:0x0c/Cinder-Box2d---PhysicsEditor.git"
+        version="0.1.0"
+        libraryUrl="http://github.com/0x0c/Cinder-Box2d---PhysicsEditor.git"
+        >
+        <headerPattern>include/b2cinder/*.h</headerPattern>
+        <sourcePattern>include/b2cinder/*.cpp</sourcePattern>
+        <includePath system="true">include/</includePath>
+        <requires>org.libcinder.box2d</requires>
+    </block>
+</cinder>

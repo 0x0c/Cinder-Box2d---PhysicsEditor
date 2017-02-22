@@ -10,6 +10,7 @@
 #include "BoundaryElement.h"
 
 namespace cinder {
+	using namespace ci;
 	namespace box2d {
 		BoundaryElement::BoundaryElement(b2World * world) :
 			PhysicsElement( world )
@@ -35,7 +36,7 @@ namespace cinder {
 				// center x, y
 
 
-				Vec2f upperLeft = mScreenBounds.getUpperLeft();
+				vec2 upperLeft = mScreenBounds.getUpperLeft();
 				float x = Conversions::toPhysics( upperLeft.x ) + w;
 				float y = Conversions::toPhysics( upperLeft.y ) + h;
 

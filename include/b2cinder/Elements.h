@@ -4,7 +4,7 @@
 
 #include "cinder/Vector.h"
 #include "cinder/Color.h"
-#include "cinder/app/AppBasic.h"
+#include "cinder/app/App.h"
 #include "cinder/Xml.h"
 
 namespace cinder{
@@ -15,11 +15,11 @@ namespace cinder{
 	class Elements {
 	public:
 		struct Polygon{
-			std::vector<Vec2f> vertexes;
+			std::vector<vec2> vertexes;
 		};
 		struct Circle{
 			float		radius;
-			ci::Vec2f	position;
+			vec2	position;
 		};
 		struct Fixture{
 			std::vector<Polygon>	polygons;

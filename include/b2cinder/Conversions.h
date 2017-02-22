@@ -15,19 +15,19 @@
 #define RADTODEG (180.0f/M_PI)
 
 namespace cinder{
-
+	using namespace ci;
 	namespace box2d {
 		
 		struct Conversions {
 			
 			const static int32_t SCALING = 250;	//250 pixels per meter sounds reasonable
 			
-			static Vec2f toScreen( b2Vec2 fin )
+			static vec2 toScreen( b2Vec2 fin )
 			{
-				return Vec2f(fin.x, fin.y) * (float)SCALING;
+				return vec2(fin.x, fin.y) * (float)SCALING;
 			}
 			
-			static b2Vec2 toPhysics( Vec2f fin )
+			static b2Vec2 toPhysics( vec2 fin )
 			{
 				return b2Vec2( fin.x / (float)SCALING, fin.y / (float)SCALING );
 			}

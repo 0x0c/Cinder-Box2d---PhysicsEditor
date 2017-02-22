@@ -53,7 +53,7 @@ namespace cinder
 
 		}
 
-		void Sandbox::setGravity( Vec2f gravity )
+		void Sandbox::setGravity( vec2 gravity )
 		{
 			mGravity = Conversions::toPhysics( gravity );
 			mWorld->SetGravity(mGravity);
@@ -68,7 +68,6 @@ namespace cinder
 				b2Body* b = node;
 				node = node->GetNext();
 
-				PhysicsElement* p = (PhysicsElement*)b->GetUserData();
 			}
 
 			b2Joint* joint = mWorld->GetJointList();
@@ -88,21 +87,21 @@ namespace cinder
 			mWorld->SetContactFilter(&mContactFilter);
 		}
 
-		void Sandbox::enableMouseInteraction( app::App *app, bool enable )
-		{
-			mIsMouseEnabled = enable;
-			if( mIsMouseEnabled )
-			{
-				mMouseDownId = app->registerMouseDown( this, &Sandbox::mouseDown );
-				mMouseUpId = app->registerMouseUp( this, &Sandbox::mouseUp );
-				mMouseDragId = app->registerMouseDrag( this, &Sandbox::mouseDrag );
-			} else {
-				app->unregisterMouseDown( mMouseDownId );
-				app->unregisterMouseUp( mMouseUpId );
-				app->unregisterMouseDrag( mMouseDragId );
-			}
-
-		}
+//		void Sandbox::enableMouseInteraction( app::App *app, bool enable )
+//		{
+//			mIsMouseEnabled = enable;
+//			if( mIsMouseEnabled )
+//			{
+//				mMouseDownId = app->registerMouseDown( this, &Sandbox::mouseDown );
+//				mMouseUpId = app->registerMouseUp( this, &Sandbox::mouseUp );
+//				mMouseDragId = app->registerMouseDrag( this, &Sandbox::mouseDrag );
+//			} else {
+//				app->unregisterMouseDown( mMouseDownId );
+//				app->unregisterMouseUp( mMouseUpId );
+//				app->unregisterMouseDrag( mMouseDragId );
+//			}
+//
+//		}
 
 		void Sandbox::debugDraw( bool drawBodies, bool drawContacts, bool drawJoints )
 		{
@@ -136,14 +135,14 @@ namespace cinder
 							{
 								b2PolygonShape* shape = (b2PolygonShape*)fixtures->GetShape();
 
-								glBegin(GL_POLYGON);
+								gl::begin(GL_POLYGON_MODE);
 
 								for( int i=0; i != shape->GetVertexCount(); ++i )
 								{
 									gl::vertex( Conversions::toScreen( shape->GetVertex(i) ) );
 								}
 
-								glEnd();
+								gl::end();
 							}
 							break;
 						case b2Shape::e_circle:
@@ -174,7 +173,7 @@ namespace cinder
 
 				gl::color( ColorA( 0.0f, 0.0f, 1.0f, 0.8f ) );
 				glPointSize(3.0f);
-				glBegin(GL_POINTS);
+				gl::begin(GL_POINTS);
 
 				while( contacts != NULL )
 				{
@@ -183,13 +182,13 @@ namespace cinder
 
 					for( int i=0; i != b2_maxManifoldPoints; ++i )
 					{
-						Vec2f p = Conversions::toScreen( m.points[i] );
+						vec2 p = Conversions::toScreen( m.points[i] );
 						gl::vertex( p );
 					}
 
 					contacts = contacts->GetNext();
 				}
-				glEnd();
+				gl::end();
 			}
 
 			if( drawJoints )
@@ -199,19 +198,19 @@ namespace cinder
 				gl::color( ColorA( 0.0f, 1.0f, 0.0f, 0.8f ) );
 				glPointSize(6.0f);
 
-				glBegin(GL_POINTS);
+				gl::begin(GL_POINTS);
 
 				while( joints != NULL )
 				{
-					Vec2f p1 = Conversions::toScreen( joints->GetAnchorA() );
-					Vec2f p2 = Conversions::toScreen( joints->GetAnchorB() );
+					vec2 p1 = Conversions::toScreen( joints->GetAnchorA() );
+					vec2 p2 = Conversions::toScreen( joints->GetAnchorB() );
 					gl::vertex( p1 );
 					gl::vertex( p2 );
 
 					joints = joints->GetNext();
 				}
 
-				glEnd();
+				gl::end();
 			}
 		}
 
@@ -229,7 +228,7 @@ namespace cinder
 			}
 		}
 
-		void Sandbox::addBox( Vec2f pos, Vec2f size )
+		void Sandbox::addBox( vec2 pos, vec2 size )
 		{	
 			b2BodyDef bodyDef;
 			bodyDef.position.Set(	Conversions::toPhysics(pos.x),

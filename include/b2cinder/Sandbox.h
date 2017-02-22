@@ -18,6 +18,7 @@
 #include "b2cinder/BoundaryElement.h"
 
 namespace cinder{
+	using namespace ci;
 	namespace box2d {
 		
 		class Sandbox {
@@ -46,7 +47,7 @@ namespace cinder{
 			b2Body & getBoundaryBody(){ return *mBounds->getBody(); };
 			
 			// add a BoxElement
-			void addBox( Vec2f pos, Vec2f size );
+			void addBox( vec2 pos, vec2 size );
 			
 			// add a user-created PhysicsElement
 			// will be used a user-data for a b2Body
@@ -61,7 +62,7 @@ namespace cinder{
 			
 			// some useful settings
 			
-			void setGravity( Vec2f gravity );
+			void setGravity( vec2 gravity );
 			void setVelocityIterations( int vi ){ mVelocityIterations = vi; }
 			void setPositionIterations( int pi ){ mPositionIterations = pi; }
 			void setTimeStep( float hz ){ mTimeStep = hz; }
@@ -84,7 +85,7 @@ namespace cinder{
 		protected:
 			bool mDoSleep;
 			
-			CallbackId mMouseDownId, mMouseUpId, mMouseDragId;
+//			CallbackId mMouseDownId, mMouseUpId, mMouseDragId;
 			
 			int mVelocityIterations;
 			int mPositionIterations;

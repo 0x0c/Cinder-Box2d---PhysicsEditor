@@ -10,7 +10,7 @@ PolyElement::~PolyElement(){
 
 }
 
-PolyElement::PolyElement( b2World * world, Vec2f pos, Elements::Body body ) 
+PolyElement::PolyElement( b2World * world, vec2 pos, Elements::Body body )
 	: PhysicsElement( world )
 {
 	mVisible = true;
@@ -87,10 +87,10 @@ PolyElement::PolyElement( b2World * world, Vec2f pos, Elements::Body body )
 	// try to get the associated texture
 	std::string filePath = body.name + ".png";
 	try{
-		mTexture = gl::Texture( loadImage( app::loadAsset( filePath ) ) );
+		mTexture = gl::Texture::create((loadImage(app::loadAsset(filePath))));
 
-		mWidth = mTexture.getWidth() * 0.5f ;
-		mHeight = mTexture.getHeight() * 0.5f ;
+		mWidth = mTexture->getWidth() * 0.5f ;
+		mHeight = mTexture->getHeight() * 0.5f ;
 	}catch(const std::exception & e){
 		app::console() << "Error loading : " << filePath << std::endl;
 		app::console() << e.what() << std::endl;
@@ -126,28 +126,29 @@ float PolyElement::getHeight(){
 	return mHeight;
 }
 
-Vec2f PolyElement::getSize(){
-	return Vec2f( mWidth, mHeight );
+vec2 PolyElement::getSize(){
+	return vec2( mWidth, mHeight );
 }
 
 void PolyElement::draw()
 {
 	if( mVisible ){
-		Vec2f pos = Conversions::toScreen( mBody->GetPosition() );
+		vec2 pos = Conversions::toScreen( mBody->GetPosition() );
 		float t = Conversions::radiansToDegrees( mBody->GetAngle() );
 
 		if( mTexture ) {
-			glPushMatrix();
+			gl::pushModelMatrix();
 
 			gl::color( ColorA::white() );
 
 			gl::translate( pos );
 			gl::rotate( t );
-			gl::translate( (float)-mTexture.getWidth()*0.5f, (float)-mTexture.getHeight()*0.5f );
+			gl::translate( (float)-mTexture->getWidth()*0.5f, (float)-mTexture->getHeight()*0.5f );
 
 			gl::draw( mTexture );
 
-			glPopMatrix();
+			gl::popModelMatrix();
+			
 		}
 	}
 
